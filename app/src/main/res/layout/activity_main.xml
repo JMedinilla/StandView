@@ -17,30 +17,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            app:backgroundColor="@color/colorPrimary"
-            app:leftImage="@drawable/g"
-            app:rightImage="@drawable/h"
+            app:backgroundColor="#212121"
+            app:leftImage="@drawable/a"
+            app:rightImage="@drawable/a2"
             app:titleBackground="#22000000"
             app:titleColor="@android:color/white"
             app:titlePadding="6dp"
             app:titleRightSide="false"
-            app:titleSize="6dp"
-            app:titleText="First item" />
+            app:titleSize="4dp"
+            app:titleText="Jon Snow" />
 
         <ncatz.jvmed.standview.StandView
             android:id="@+id/secondStand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            app:backgroundColor="@color/colorPrimary"
-            app:leftImage="@drawable/h"
-            app:rightImage="@drawable/g"
+            app:backgroundColor="#fcd600"
+            app:leftImage="@drawable/b2"
             app:titleBackground="#22000000"
             app:titleColor="@android:color/white"
             app:titlePadding="6dp"
             app:titleRightSide="true"
+            app:titleSize="8dp"
+            app:titleText="McDonald's" />
+
+        <ncatz.jvmed.standview.StandView
+            android:id="@+id/thirdStand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:backgroundColor="#3fc23f"
+            app:leftImage="@drawable/c"
+            app:rightImage="@drawable/c2"
+            app:titleBackground="#22000000"
+            app:titleColor="@android:color/white"
+            app:titlePadding="6dp"
+            app:titleRightSide="false"
             app:titleSize="6dp"
-            app:titleText="Second item" />
+            app:titleText="Pisa Tower (Italy)" />
 
     </LinearLayout>
 </ScrollView>

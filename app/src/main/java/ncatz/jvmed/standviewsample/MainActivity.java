@@ -15,7 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
         StandView first = findViewById(R.id.firstStand);
         StandView second = findViewById(R.id.secondStand);
-        first.setTypeFace(ResourcesCompat.getFont(MainActivity.this, R.font.permanent_marker));
-        second.setTypeFace(ResourcesCompat.getFont(MainActivity.this, R.font.permanent_marker));
+        StandView third = findViewById(R.id.thirdStand);
+        first.setTypeFace(ResourcesCompat.getFont(MainActivity.this, R.font.game_thrones));
+        second.setTypeFace(ResourcesCompat.getFont(MainActivity.this, R.font.learners));
+        third.setTypeFace(ResourcesCompat.getFont(MainActivity.this, R.font.italiana));
     }
 }
