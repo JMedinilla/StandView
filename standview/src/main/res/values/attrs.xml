@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="StandViewLeft">
+        <attr name="backgroundColorL" format="reference|color" />
+        <attr name="leftImageL" format="reference" />
+        <attr name="rightImageL" format="reference" />
+        <attr name="titleTextL" format="reference|string" />
+        <attr name="titleColorL" format="reference|color" />
+        <attr name="titleSizeL" format="dimension" />
+        <attr name="titlePaddingL" format="dimension" />
+        <attr name="titleBackgroundL" format="reference|color" />
+        <attr name="titleFontL" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="StandViewRight">
+        <attr name="backgroundColorR" format="reference|color" />
+        <attr name="leftImageR" format="reference" />
+        <attr name="rightImageR" format="reference" />
+        <attr name="titleTextR" format="reference|string" />
+        <attr name="titleColorR" format="reference|color" />
+        <attr name="titleSizeR" format="dimension" />
+        <attr name="titlePaddingR" format="dimension" />
+        <attr name="titleBackgroundR" format="reference|color" />
+        <attr name="titleFontR" format="reference" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ncatz.jvmed.standview.StandViewLeft
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:backgroundColorL="@color/colorPrimary"
+        app:leftImageL="@drawable/g"
+        app:rightImageL="@drawable/h"
+        app:titleBackgroundL="#22000000"
+        app:titleColorL="@android:color/white"
+        app:titlePaddingL="4dp"
+        app:titleSizeL="6dp"
+        app:titleTextL="@string/app_name" />
+
+    <ncatz.jvmed.standview.StandViewRight
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:backgroundColorR="@color/colorPrimary"
+        app:leftImageR="@drawable/h"
+        app:rightImageR="@drawable/g"
+        app:titleBackgroundR="#22000000"
+        app:titleColorR="@android:color/white"
+        app:titlePaddingR="4dp"
+        app:titleSizeR="6dp"
+        app:titleTextR="@string/app_name" />
+
+</LinearLayout>
