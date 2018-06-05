@@ -15,9 +15,13 @@ import android.widget.TextView;
 
 public class StandView extends ConstraintLayout {
 
-    private TextView background;
-    private TextView color;
-    private TextView title;
+    private ConstraintLayout layoutC;
+    private TextView backgroundT;
+    private TextView colorT;
+    private TextView titleT;
+    private ImageView leftI;
+    private ImageView rightI;
+    private boolean rightSide;
 
     public StandView(Context context) {
         super(context);
@@ -25,6 +29,7 @@ public class StandView extends ConstraintLayout {
 
     public StandView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        rightSide = false;
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StandView);
         int backgroundColor = typedArray.getColor(R.styleable.StandView_backgroundColor, Color.WHITE);
@@ -32,13 +37,16 @@ public class StandView extends ConstraintLayout {
         Drawable rightImage = typedArray.getDrawable(R.styleable.StandView_rightImage);
         String titleText = typedArray.getString(R.styleable.StandView_titleText);
         int titleColor = typedArray.getColor(R.styleable.StandView_titleColor, Color.WHITE);
+
         float titleSize = typedArray.getDimension(R.styleable.StandView_titleSize, 14);
+        float colorSize = titleSize + titleSize + Math.round(titleSize / 3);
+        float backgroundSize = colorSize + titleSize + Math.round(titleSize / 3);
+
         float titlePadding = typedArray.getDimension(R.styleable.StandView_titlePadding, 0);
         int intPadding = Math.round(titlePadding);
-        float colorSize = titleSize + titleSize + Math.round(titleSize / 3);
         int colorPadding = intPadding + intPadding + Math.round(intPadding / 3);
-        float backgroundSize = colorSize + titleSize + Math.round(titleSize / 3);
         int backgroundPadding = colorPadding + intPadding + Math.round(intPadding / 3);
+
         int titleBackground = typedArray.getColor(R.styleable.StandView_titleBackground, Color.WHITE);
         boolean rightSide = typedArray.getBoolean(R.styleable.StandView_titleRightSide, false);
 
@@ -47,40 +55,28 @@ public class StandView extends ConstraintLayout {
         if (inflater != null) {
             ConstraintLayout parent = (ConstraintLayout) inflater.inflate(R.layout.stand_view, this, true);
 
-            ConstraintLayout layout = parent.findViewById(R.id.parentLayout);
-            background = parent.findViewById(R.id.transparent_background);
-            color = parent.findViewById(R.id.color_background);
-            title = parent.findViewById(R.id.textTitle);
-            ImageView left = parent.findViewById(R.id.left_image);
-            ImageView right = parent.findViewById(R.id.right_image);
+            layoutC = parent.findViewById(R.id.parentLayout);
+            backgroundT = parent.findViewById(R.id.transparent_background);
+            colorT = parent.findViewById(R.id.color_background);
+            titleT = parent.findViewById(R.id.textTitle);
+            leftI = parent.findViewById(R.id.left_image);
+            rightI = parent.findViewById(R.id.right_image);
 
-            color.setBackgroundColor(backgroundColor);
-            left.setImageDrawable(leftImage);
-            right.setImageDrawable(rightImage);
-            title.setText(titleText);
-            title.setTextColor(titleColor);
-            title.setBackgroundColor(titleBackground);
+            colorT.setBackgroundColor(backgroundColor);
+            leftI.setImageDrawable(leftImage);
+            rightI.setImageDrawable(rightImage);
+            titleT.setText(titleText);
+            titleT.setTextColor(titleColor);
+            titleT.setBackgroundColor(titleBackground);
 
-            title.setTextSize(titleSize);
-            title.setPadding(intPadding, intPadding, intPadding, intPadding);
-            color.setTextSize(colorSize);
-            color.setPadding(colorPadding, colorPadding, colorPadding, colorPadding);
-            background.setTextSize(backgroundSize);
-            background.setPadding(backgroundPadding, backgroundPadding, backgroundPadding, backgroundPadding);
+            titleT.setTextSize(titleSize);
+            colorT.setTextSize(colorSize);
+            backgroundT.setTextSize(backgroundSize);
+            titleT.setPadding(intPadding, intPadding, intPadding, intPadding);
+            colorT.setPadding(colorPadding, colorPadding, colorPadding, colorPadding);
+            backgroundT.setPadding(backgroundPadding, backgroundPadding, backgroundPadding, backgroundPadding);
 
-            ConstraintSet set = new ConstraintSet();
-            set.clone(layout);
-            if (rightSide) {
-                title.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
-                set.connect(R.id.left_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.BOTTOM, 0);
-                set.connect(R.id.right_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.TOP, 0);
-                set.applyTo(layout);
-            } else {
-                title.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-                set.connect(R.id.left_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.TOP, 0);
-                set.connect(R.id.right_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.BOTTOM, 0);
-                set.applyTo(layout);
-            }
+            setRightSide(rightSide);
         }
 
         typedArray.recycle();
@@ -90,11 +86,90 @@ public class StandView extends ConstraintLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setTypeFace(Typeface titleFont) {
-        if (titleFont != null) {
-            title.setTypeface(titleFont);
-            color.setTypeface(titleFont);
-            background.setTypeface(titleFont);
+    public void setBackgroundColor(int color) {
+        colorT.setBackgroundColor(color);
+    }
+
+    public void setLeftImage(Drawable image) {
+        leftI.setImageDrawable(image);
+    }
+
+    public void setRightImage(Drawable image) {
+        rightI.setImageDrawable(image);
+    }
+
+    public void setTitleText(String text) {
+        titleT.setText(text);
+    }
+
+    public String getTitleText() {
+        return titleT.getText().toString();
+    }
+
+    public void setTitleColor(int color) {
+        titleT.setTextColor(color);
+    }
+
+    public int getTitleColor() {
+        return titleT.getCurrentTextColor();
+    }
+
+    public void setTitleSize(float size) {
+        float sizeC = size + size + Math.round(size / 3);
+        float sizeB = sizeC + size + Math.round(size / 3);
+        titleT.setTextSize(size);
+        colorT.setTextSize(sizeC);
+        backgroundT.setTextSize(sizeB);
+    }
+
+    public float getTitleSize() {
+        return titleT.getTextSize();
+    }
+
+    public void setTitlePadding(float padding) {
+        int intPadding = Math.round(padding);
+        int paddingC = intPadding + intPadding + Math.round(intPadding / 3);
+        int paddingB = paddingC + intPadding + Math.round(intPadding / 3);
+        titleT.setPadding(intPadding, intPadding, intPadding, intPadding);
+        colorT.setPadding(paddingC, paddingC, paddingC, paddingC);
+        backgroundT.setPadding(paddingB, paddingB, paddingB, paddingB);
+    }
+
+    public void setTitleBackground(int color) {
+        titleT.setBackgroundColor(color);
+    }
+
+    public void setRightSide(boolean rightSide) {
+        ConstraintSet set = new ConstraintSet();
+        set.clone(layoutC);
+        if (rightSide) {
+            this.rightSide = true;
+            titleT.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
+            set.connect(R.id.left_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.BOTTOM, 0);
+            set.connect(R.id.right_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.TOP, 0);
+            set.applyTo(layoutC);
+        } else {
+            this.rightSide = false;
+            titleT.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+            set.connect(R.id.left_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.TOP, 0);
+            set.connect(R.id.right_image, ConstraintSet.BOTTOM, R.id.textTitle, ConstraintSet.BOTTOM, 0);
+            set.applyTo(layoutC);
         }
+    }
+
+    public boolean getRightSide() {
+        return this.rightSide;
+    }
+
+    public void setTypeface(Typeface titleFont) {
+        if (titleFont != null) {
+            titleT.setTypeface(titleFont);
+            colorT.setTypeface(titleFont);
+            backgroundT.setTypeface(titleFont);
+        }
+    }
+
+    public Typeface getTypeface() {
+        return titleT.getTypeface();
     }
 }
